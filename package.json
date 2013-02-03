@@ -15,7 +15,7 @@
   },
   "keywords": ["gossip"],
   "dependencies": {
-    "msgpack"     : ">= 0.0.0"
+    "json-over-tcp": "*"  
   },
   "main": "index.js",
   "scripts": { "test": "expresso -I lib test/*" },

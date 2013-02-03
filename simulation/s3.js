@@ -1,4 +1,4 @@
-var Gossiper = require('gossiper').Gossiper;
+var Gossiper = require('../lib/gossiper').Gossiper;
 
 var seed1 = new Gossiper(9000, []);
 seed1.start();

@@ -1,7 +1,7 @@
-var Gossiper = require('gossiper').Gossiper;
+var Gossiper = require('../../lib/gossiper').Gossiper;
 
 module.exports = {
-  'basic test' : function(assert, beforeExit) {
+  'basic test' : function(beforeExit, assert) {
     var seed = new Gossiper(7000, []);
     seed.start();
 

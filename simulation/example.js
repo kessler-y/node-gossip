@@ -1,4 +1,4 @@
-var Gossiper = require('gossiper').Gossiper;
+var Gossiper = require('../lib/gossiper').Gossiper;
 // Create a seed peer.
 var seed = new Gossiper(9000, []);
 seed.start();

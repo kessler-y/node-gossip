@@ -1,20 +1,22 @@
-var PeerState = require('peer_state').PeerState;
+var PeerState = require('../lib/peer_state').PeerState;
+
+
 module.exports = {
   // UpdateWithDelta
-  "updateWithDelta should set key to value" : function(assert) {
+  "updateWithDelta should set key to value" : function(beforeExit, assert) {
     var ps = new PeerState();
     ps.updateWithDelta('a', 'hello', 12);
     assert.equal('hello', ps.getValue('a'));
   },
 
-  "updateWithDelta should update the max version" : function(assert) {
+  "updateWithDelta should update the max version" : function(beforeExit, assert) {
     var ps = new PeerState();
     ps.updateWithDelta('a', 'hello', 12);
     ps.updateWithDelta('a', 'hello', 14);
     assert.equal(14, ps.max_version_seen);
   },
 
-  "updates should trigger 'update' event" : function(assert, beforeExit) {
+  "updates should trigger 'update' event" : function(beforeExit, assert) {
     var ps = new PeerState();
     var n = 0;
     ps.on('update', function(k,v) {
@@ -27,13 +29,13 @@ module.exports = {
   },
 
   // updateLocal
-  "updateLocal should set key to value" : function(assert) {
+  "updateLocal should set key to value" : function(beforeExit, assert) {
     var ps = new PeerState();
     ps.updateLocal('a', 'hello', 12);
     assert.equal('hello', ps.getValue('a'));
   },
 
-  "updateLocal should increment the max version" : function(assert) {
+  "updateLocal should increment the max version" : function(beforeExit, assert) {
     var ps = new PeerState();
     ps.updateLocal('a', 'hello');
     ps.updateLocal('a', 'hello');
@@ -41,7 +43,7 @@ module.exports = {
   },
 
   // deltasAfterVersion
-  "deltasAfterVersion should return all deltas after a version number" : function(assert) {
+  "deltasAfterVersion should return all deltas after a version number" : function(beforeExit, assert) {
     var ps = new PeerState();
     ps.updateLocal('a', 1);
     ps.updateLocal('b', 'blah');

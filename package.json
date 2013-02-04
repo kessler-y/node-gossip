@@ -1,7 +1,7 @@
 {
   "name": "gossiper",
   "description": "node-gossip implements a gossip protocol",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Bob Potter <bobby.potter@gmail.com>",
   "contributors": [
     {

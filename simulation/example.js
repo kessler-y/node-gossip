@@ -11,14 +11,23 @@ for(var i = 9001; i <= 9020;i++) {
   
   g.on('update', function(peer, k, v) {
     if(k == 'somekey') {
-      console.log("peer " + peer + " set " + k + " to " + v); // peer 127.0.0.1:9999 set somekey to somevalue
+      console.log("peer ", peer, " set ", k, " to ", v); // peer 127.0.0.1:9999 set somekey to somevalue
     }
   });
+
+  sendUpdate(g);
 }
 
 // Add another peer which updates it's state after 15 seconds
 var updater = new Gossiper(9999, ['127.0.0.1:9000']);
 updater.start();
-setInterval(function() {
-  updater.setLocalState('somekey', 'somevalue');
-}, 15000);
+sendUpdate(updater);
+
+var time = 30000;
+
+function sendUpdate(g) {
+	time = time - 100;
+	setTimeout(function() {
+  		g.setLocalState('somekey', {x:1, y:2});
+	}, time);	
+}

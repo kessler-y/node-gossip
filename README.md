@@ -1,9 +1,9 @@
 This is my fork for the original node-gossip
 ============================================
 
-The two main differences are:
-1. instead of msgpack its using json-over-tcp
-2. key/value pairs have optional ttl, which propagates to the other peers, it will cause keys to get deleted (although this is not an EXACT mechanism, so it shouldn't be used as such)
+### The two main differences are:
+* instead of msgpack its using json-over-tcp
+* key/value pairs have optional ttl, which propagates to the other peers, it will cause keys to get deleted (although this is not an EXACT mechanism, so it shouldn't be used as such)
 
 node-gossip implements a gossip protocol w/failure detection, allowing you to create a fault-tolerant, self-managing cluster of node.js processes.  Each server in the cluster has it's own set of key-value pairs which are propogated to the others peers in the cluster.  The API allows you to make changes to the local state, listen for changes in state, listen for new peers and be notified when a peer appears to be dead or appears to have come back to life.
 

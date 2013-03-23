@@ -43,8 +43,8 @@ module.exports = {
     p1.updateLocal('meh', 'goodbye');
     var scuttle = new Scuttle({'me' : p1});
     var res = scuttle.scuttle( {'me' : 0, 'new_peer' : 12 } ) 
-    assert.deepEqual([['me', 'hi', 'hello', 1],
-                      ['me', 'meh', 'goodbye', 2]], 
+    assert.deepEqual([['me', 'hi', 'hello', 1, null],
+                      ['me', 'meh', 'goodbye', 2, null]], 
                      res.deltas);
   }
 

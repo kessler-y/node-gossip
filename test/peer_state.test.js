@@ -48,6 +48,6 @@ module.exports = {
     ps.updateLocal('a', 1);
     ps.updateLocal('b', 'blah');
     ps.updateLocal('a', 'super');
-    assert.deepEqual([['a','super','3']], ps.deltasAfterVersion(2));
+    assert.deepEqual([['a','super','3', null]], ps.deltasAfterVersion(2));
   }
 }

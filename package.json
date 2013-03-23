@@ -1,7 +1,7 @@
 {
-  "name": "gossiper",
+  "name": "gossiper2",
   "description": "node-gossip implements a gossip protocol",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Bob Potter <bobby.potter@gmail.com>",
   "contributors": [
     {
@@ -11,11 +11,11 @@
   ],
   "repository": {
     "type" : "git",
-    "url"  : "git://github.com/bpot/node-gossip.git" 
+    "url"  : "git://github.com/yanush/node-gossip.git" 
   },
   "keywords": ["gossip"],
   "dependencies": {
-    "json-over-tcp": "*"  
+    "json-over-tcp": "*"
   },
   "main": "index.js",
   "scripts": { "test": "expresso -I lib test/*" },

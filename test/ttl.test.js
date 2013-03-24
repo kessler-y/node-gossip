@@ -18,7 +18,7 @@ function listenToGossip(gossiper, listenCount, cb) {
 }
 
 module.exports = {
-	'ttl should propagate to other peers': function(beforeExit, assert) {
+	'ttl should propagate to other peers and get expired throughout the net': function(beforeExit, assert) {
 		var seed = new Gossiper(7000, [], '127.0.0.1');			
 		var g1 = new Gossiper(7001, ['127.0.0.1:7000'], '127.0.0.1');			
 		var g2 = new Gossiper(7002, ['127.0.0.1:7000'], '127.0.0.1');
@@ -63,11 +63,10 @@ module.exports = {
 			goPhase2();			
 		}
 
-		function goPhase2() {
-			g1.setLocalState('each nee', 'son chee');
+		function goPhase2() {			
 			console.log('waiting for keys to expire');
 			setTimeout(function() {
-				
+					
 				assert.ok(!('x' in g2.my_state.attrs), 'g2 include x when it shouldnt');
 				
 				assert.ok(!('x' in g1.my_state.attrs), 'g1 include x when it shouldnt');

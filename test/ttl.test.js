@@ -3,11 +3,6 @@ var Gossiper = require('../lib/gossiper').Gossiper;
 function listenToGossip(gossiper, listenCount, cb) {
 
 	var listener = function(peer, k, v, ttl) {
-		
-		if (listenCount > -1 && --listenCount === 0) {
-			console.log('removing listener');
-			gossiper.removeListener('update', listener);			
-		}
 
 		gossiper.setLocalState(k, v, ttl);
 
@@ -24,6 +19,18 @@ module.exports = {
 		var g2 = new Gossiper(7002, ['127.0.0.1:7000'], '127.0.0.1');
 		var testTTL = Date.now() + 8000;
 
+		var expiredCount = 0;
+		
+		function checkExpired(expired) {
+			assert.ok('x' in expired);
+			expiredCount++;		
+			console.log('expired fired');
+		}
+
+		g1.on('expired', checkExpired);
+		g2.on('expired', checkExpired);
+		seed.on('expired', checkExpired);
+
 		seed.start(function() {				
 			console.log('seed started');
 			g1.start(function() {
@@ -36,7 +43,7 @@ module.exports = {
 					listenToGossip(g2, 1);
 					listenToGossip(seed, 1);
 
-					console.log('waiting 3 seconds for data to propagated');
+					console.log('waiting 5 seconds for data to propagated');
 					setTimeout(goPhase1, 5000);
 				});					
 			});
@@ -90,6 +97,8 @@ module.exports = {
 					g1.stop();
 					g2.stop();
 					seed.stop();
+
+					assert.strictEqual(3, expiredCount, 'expected 9 events to be fired but got ' + expiredCount);
 
 				}, 10000);
 			}, 10000);

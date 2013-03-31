@@ -21,6 +21,7 @@ Check out the the scripts in the simulations/ directory for some examples.
     // Create 20 new peers and point them at the seed (usually this would happen in 20 separate processes)
     // To prevent having a single point of failure you would probably have multiple seeds
     for(var i = 9001; i <= 9020;i++) {
+      //For IPv6 peers use the format [ad:dre::ss]:port. e.g. [::1]:9000
       var g = new Gossiper(i, ['127.0.0.1:9000']);
       g.start();
       

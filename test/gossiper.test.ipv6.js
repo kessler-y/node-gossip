@@ -56,7 +56,7 @@ module.exports = {
       assert.deepEqual(['[::1]:8010', 'howdy', 'yall'], update);
     });
   }
-  ,'Bind to local ipv6 address': function(assert, beforeExit) {
+  ,'Bind to local ipv6 address': function(beforeExit, assert) {
     var g = new Gossiper(8018, [], '::1');
     g.start();
     setTimeout(function() {

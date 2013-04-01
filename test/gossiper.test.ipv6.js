@@ -45,19 +45,19 @@ module.exports = {
   },
   'should emit update event when we learn more about a peer' : function(beforeExit, assert) {
     var g = new Gossiper();
-    g.peers['[::1]:8010'] = new PeerState();
-    g.handleNewPeers(['[::1]:8010']);
+    g.peers['[::1]:9010'] = new PeerState();
+    g.handleNewPeers(['[::1]:9010']);
     var update = null;
     g.on('update', function(peer,k,v) {
      update = [peer,k,v];
     });
-    g.peers['[::1]:8010'].updateLocal('howdy', 'yall');
+    g.peers['[::1]:9010'].updateLocal('howdy', 'yall');
     beforeExit(function() {
-      assert.deepEqual(['[::1]:8010', 'howdy', 'yall'], update);
+      assert.deepEqual(['[::1]:9010', 'howdy', 'yall'], update);
     });
   }
   ,'Bind to local ipv6 address': function(beforeExit, assert) {
-    var g = new Gossiper(8018, [], '::1');
+    var g = new Gossiper(9018, [], '::1');
     g.start();
     setTimeout(function() {
       beforeExit(function() {

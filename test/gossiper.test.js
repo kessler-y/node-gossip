@@ -60,8 +60,10 @@ module.exports = {
     var g = new Gossiper(8018, [], '::1');
     g.start();
     setTimeout(function() {
+      var boundAddress = g.server.address().address;
+      g.stop();
       beforeExit(function() {
-        assert.deepEqual(g.server.address().address, '::1');
+        assert.deepEqual(boundAddress, '::1');
       });
     }, 2000);
   }

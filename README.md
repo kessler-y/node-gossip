@@ -1,5 +1,5 @@
-This is my fork for the original node-gossip
-============================================
+A fork of the original node-gossip
+===================================
 
 ### The two main differences are:
 * instead of msgpack its using json-over-tcp

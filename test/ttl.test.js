@@ -1,5 +1,14 @@
 var Gossiper = require('../lib/gossiper').Gossiper;
 
+function random(start, end) {
+	var range = end - start;
+    return Math.floor((Math.random() * range) + start);
+}
+
+var PORT1 = random(6500, 6999);
+var PORT2 = random(7000, 7500);
+var PORT3 = random(7501, 8000);
+
 function listenToGossip(gossiper, listenCount, cb) {
 
 	var listener = function(peer, k, v, ttl) {
@@ -14,9 +23,9 @@ function listenToGossip(gossiper, listenCount, cb) {
 
 module.exports = {
 	'ttl should propagate to other peers and get expired throughout the net': function(beforeExit, assert) {
-		var seed = new Gossiper(7000, [], '127.0.0.1');			
-		var g1 = new Gossiper(7001, ['127.0.0.1:7000'], '127.0.0.1');			
-		var g2 = new Gossiper(7002, ['127.0.0.1:7000'], '127.0.0.1');
+		var seed = new Gossiper(PORT1, [], '127.0.0.1');			
+		var g1 = new Gossiper(PORT2, ['127.0.0.1:' + PORT1], '127.0.0.1');			
+		var g2 = new Gossiper(PORT3, ['127.0.0.1:' + PORT1], '127.0.0.1');
 		var testTTL = Date.now() + 8000;
 
 		var expiredCount = 0;

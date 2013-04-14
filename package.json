@@ -1,13 +1,18 @@
 {
   "name": "gossiper2",
   "description": "node-gossip implements a gossip protocol",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Bob Potter <bobby.potter@gmail.com>",
   "contributors": [
     {
       "name": "Christopher Mooney",
-      "email": "chris@dod.net"
-    }
+      "email": "chris@dod.net"	
+    },
+	{
+		"name": "Yaniv Kessler"
+		"email": "yanivk@gmail.com"
+	}
+
   ],
   "repository": {
     "type" : "git",

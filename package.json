@@ -9,7 +9,7 @@
       "email": "chris@dod.net"	
     },
 	{
-		"name": "Yaniv Kessler"
+		"name": "Yaniv Kessler",
 		"email": "yanivk@gmail.com"
 	}
 
@@ -18,7 +18,7 @@
     "type" : "git",
     "url"  : "git://github.com/yanush/node-gossip.git" 
   },
-  "keywords": ["gossip"],
+  "keywords": ["gossip", "scuttlebutt"],
   "dependencies": {
     "json-over-tcp": "*"
   },

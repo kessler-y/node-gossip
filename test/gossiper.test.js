@@ -67,4 +67,49 @@ module.exports = {
       });
     }, 2000);
   }
+  ,'variable length gossip contruction, port and peers' : function(beforeExit, assert) {
+    var peers = ['127.0.0.1:8020'];
+
+    var g = new Gossiper(8019, peers);
+    assert.equals(peers[0], g.peers[0]);
+  }
+  ,'variable length gossip contruction, port and address' : function(beforeExit, assert) {
+    var peers = ['127.0.0.1:8020'];
+
+    var g = new Gossiper(8019, peers);
+    assert.equals(peers[0], g.peers[0]);
+  }
+  ,'variable length gossip contruction, port and opts' : function(beforeExit, assert) {
+    var opts = {bind_address: '0.0.0.0'};
+
+    var g = new Gossiper(8019, opts);
+    assert.equals(opts.bind_address, g.bind_address);
+  }
+  ,'variable length gossip contruction, port, peers, and address' : function(beforeExit, assert) {
+    var peers = ['127.0.0.1:8020'];
+    var addr = '127.0.0.1';
+
+    var g = new Gossiper(8019, peers, address);
+    assert.equals(peers[0], g.peers[0]);
+    assert.equals(g.address, addr);
+    assert.equals(g.bind_address, addr);
+  }
+  ,'variable length gossip contruction, port, peers, and opts' : function(beforeExit, assert) {
+    var peers = ['127.0.0.1:8020'];
+    var opts = {bind_address: '0.0.0.0'};
+
+    var g = new Gossiper(8019, peers, opts);
+    assert.equals(peers[0], g.peers[0]);
+    assert.equals(opts.bind_address, g.bind_address);
+  }
+  ,'variable length gossip contruction, port, peers, address, opts' : function(beforeExit, assert) {
+    var peers = ['127.0.0.1:8020'];
+    var opts = {bind_address: '0.0.0.0'};
+    var addr = '127.0.0.1';
+
+    var g = new Gossiper(8019, peers);
+    assert.equals(peers[0], g.peers[0]);
+    assert.equals(g.address, addr);
+    assert.equals(opts.bind_address, g.bind_address);
+  }
 }

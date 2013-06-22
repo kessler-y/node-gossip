@@ -8,11 +8,14 @@
       "name": "Christopher Mooney",
       "email": "chris@dod.net"	
     },
-	{
-		"name": "Yaniv Kessler",
-		"email": "yanivk@gmail.com"
-	}
-
+    {
+      "name": "Yaniv Kessler",
+      "email": "yanivk@gmail.com"
+    },
+    {
+      "name": "Joshua Erickson",
+      "email": "josh@snoj.us"	
+    }
   ],
   "repository": {
     "type" : "git",

@@ -1,12 +1,12 @@
 {
   "name": "gossiper2",
   "description": "node-gossip implements a gossip protocol",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Bob Potter <bobby.potter@gmail.com>",
   "contributors": [
     {
       "name": "Christopher Mooney",
-      "email": "chris@dod.net"	
+      "email": "chris@dod.net"
     },
     {
       "name": "Yaniv Kessler",
@@ -14,12 +14,12 @@
     },
     {
       "name": "Joshua Erickson",
-      "email": "josh@snoj.us"	
+      "email": "josh@snoj.us"
     }
   ],
   "repository": {
     "type" : "git",
-    "url"  : "git://github.com/kessler-y/node-gossip.git" 
+    "url"  : "git://github.com/kessler/node-gossip.git"
   },
   "keywords": ["gossip", "scuttlebutt"],
   "dependencies": {

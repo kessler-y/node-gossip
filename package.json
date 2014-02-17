@@ -1,7 +1,7 @@
 {
-  "name": "gossiper2",
-  "description": "node-gossip implements a gossip protocol",
-  "version": "0.1.3",
+  "name": "chitchat",
+  "description": "gossip protocol - a fork of gossiper module with some added features",
+  "version": "0.1.4",
   "author": "Bob Potter <bobby.potter@gmail.com>",
   "contributors": [
     {
@@ -18,14 +18,22 @@
     }
   ],
   "repository": {
-    "type" : "git",
-    "url"  : "git://github.com/kessler/node-gossip.git"
+    "type": "git",
+    "url": "git://github.com/kessler/node-gossip.git"
   },
-  "keywords": ["gossip", "scuttlebutt"],
+  "keywords": [
+    "gossip",
+    "scuttlebutt"
+  ],
   "dependencies": {
-    "json-over-tcp": "*"
+    "json-over-tcp": "~0.3.2",
+    "debug": "~0.7.4"
   },
   "main": "index.js",
-  "scripts": { "test": "expresso -I lib test/*" },
-  "engines": { "node": "0.4.x || 0.5.x || 0.6.x || 0.7.x || 0.8.x || 0.9.x || 0.10.x" }
+  "scripts": {
+    "test": "expresso -I lib test/*"
+  },
+  "engines": {
+    "node": "0.4.x || 0.5.x || 0.6.x || 0.7.x || 0.8.x || 0.9.x || 0.10.x"
+  }
 }

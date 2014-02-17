@@ -1,5 +1,5 @@
 {
-  "name": "chitchat",
+  "name": "grapevine",
   "description": "gossip protocol - a fork of gossiper module with some added features",
   "version": "0.1.4",
   "author": "Bob Potter <bobby.potter@gmail.com>",

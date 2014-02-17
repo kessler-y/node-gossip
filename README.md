@@ -1,8 +1,16 @@
-A fork of the original node-gossip
-===================================
+Grapevine
+=========
 
-#### main differences are:
-* instead of msgpack its using json-over-tcp
+_A fork of the original node-gossip_
+
+> grape·vine  (grāp′vīn′) n.
+> 1. A vine on which grapes grow.
+> 2.
+>   a. The informal transmission of information, gossip, or rumor from person to person.
+>   b. A usually unrevealed source of confidential information.
+
+#### Added features:
+* instead of msgpack this fork is using json-over-tcp
 * key/value pairs have optional ttl, which propagates to the other peers, it will cause keys to get deleted (although this is not an EXACT mechanism, so it shouldn't be used as such)
 * IPv6 support
 * various bug fixes
@@ -26,7 +34,7 @@ Check out the the scripts in the simulations/ directory for some examples.
       //For IPv6 peers use the format [ad:dre::ss]:port. e.g. [::1]:9000
       var g = new Gossiper(i, ['127.0.0.1:9000']);
       g.start();
-      
+
       g.on('update', function(peer, k, v) {
         console.log("peer " + peer + " set " + k + " to " + v); // peer 127.0.0.1:9999 set somekey to somevalue
       });

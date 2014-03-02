@@ -76,6 +76,8 @@ Gossiper events:
 
 ### TODO
 
+* major code refactoring, too many people wrote too much code without proper coordination
+* convert tests to mocha
 * test edge cases
 * Cluster name -- dont allow peers to accidentally join the wrong cluster
 * The scuttlebutt paper mentions a couple things we don't current do:

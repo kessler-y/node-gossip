@@ -17,7 +17,7 @@ module.exports = {
       seed.stop();
       g1.stop();
       g2.stop();
-    }, 10000);
+    }, 7000);
 
     beforeExit(function() {
       assert.equal('node', g1.peerValue('127.0.0.1:7002', 'your'));

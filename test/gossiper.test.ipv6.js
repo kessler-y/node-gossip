@@ -46,7 +46,7 @@ module.exports = {
   'should emit update event when we learn more about a peer' : function(beforeExit, assert) {
     var g = new Gossiper(1234);
     g.peers['[::1]:9010'] = new PeerState(9010);
-    g.handleNewPeers(['[::1]:9010']);
+    g.handleNewPeers({ '[::1]:9010': undefined });
     var update = null;
     g.on('update', function(peer,k,v) {
      update = [peer,k,v];

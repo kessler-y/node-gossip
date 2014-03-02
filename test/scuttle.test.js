@@ -13,14 +13,29 @@ module.exports = {
     p3.max_version_seen = 22;
 
     var peers = {
-      'a' : p1,
-      'b' : p2,
-      'c' : p3
+      a : p1,
+      b : p2,
+      c : p3
     }
 
     var scuttle = new Scuttle(peers);
 
-    assert.deepEqual( { 'a' : 10, 'b' : 12, 'c' : 22 },
+    var expected = {
+      a: {
+        maxVersionSeen: 10,
+        metadata: undefined
+      },
+      b: {
+        maxVersionSeen: 12,
+        metadata: undefined
+      },
+      c: {
+        maxVersionSeen: 22,
+        metadata: undefined
+      }
+    };
+
+    assert.deepEqual( expected,
                       scuttle.digest());
   },
 
@@ -28,12 +43,12 @@ module.exports = {
   // scuttle new peer
   'new peers should be in result' : function(beforeExit, assert) {
     var scuttle = new Scuttle({});
-    var res = scuttle.scuttle( { 'new_peer' : 12 } )
-    assert.deepEqual(['new_peer'], res.new_peers);
+    var res = scuttle.scuttle( { 'new_peer' : { maxVersionSeen: 12 } } )
+    assert.deepEqual( { 'new_peer': undefined }, res.new_peers);
   },
   'request all information about a new peer' : function(beforeExit, assert) {
     var scuttle = new Scuttle({});
-    var res = scuttle.scuttle( { 'new_peer' : 12 } )
+    var res = scuttle.scuttle( { 'new_peer' : { maxVersionSeen: 12 } } )
     assert.deepEqual({ 'new_peer' : 0}, res.requests);
   },
   // scuttle deltas
@@ -42,9 +57,10 @@ module.exports = {
     p1.updateLocal('hi', 'hello');
     p1.updateLocal('meh', 'goodbye');
     var scuttle = new Scuttle({'me' : p1});
-    var res = scuttle.scuttle( {'me' : 0, 'new_peer' : 12 } )
-    assert.deepEqual([['me', 'hi', 'hello', 1, null],
-                      ['me', 'meh', 'goodbye', 2, null]],
+    var res = scuttle.scuttle( {'me' : { maxVersionSeen: 0 }, 'new_peer' : { maxVersionSeen: 12 } } )
+
+    assert.deepEqual([['me', 'hi', 'hello', 1, undefined],
+                      ['me', 'meh', 'goodbye', 2, undefined]],
                      res.deltas);
   }
 

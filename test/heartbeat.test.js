@@ -1,4 +1,4 @@
-var Gossiper = require('../../lib/gossiper').Gossiper;
+var Gossiper = require('../lib/gossiper').Gossiper;
 
 module.exports = {
   'heartbeat' : function(beforeExit, assert) {

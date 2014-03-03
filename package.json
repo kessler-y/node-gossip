@@ -1,7 +1,7 @@
 {
   "name": "grapevine",
   "description": "gossip protocol - a fork of gossiper module with some added features",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Bob Potter <bobby.potter@gmail.com>",
   "contributors": [
     {

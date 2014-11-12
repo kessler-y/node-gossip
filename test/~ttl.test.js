@@ -1,4 +1,4 @@
-var Gossiper = require('../lib/gossiper').Gossiper;
+var Gossiper = require('../lib/gossiper');
 
 function random(start, end) {
 	var range = end - start;

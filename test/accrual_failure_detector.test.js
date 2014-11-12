@@ -1,4 +1,4 @@
-var AccrualFailureDetector = require('../lib/accrual_failure_detector').AccrualFailureDetector;
+var AccrualFailureDetector = require('../lib/accrual_failure_detector');
 
 module.exports = {
   'should have a low phi value after only a second' : function(beforeExit, assert) {

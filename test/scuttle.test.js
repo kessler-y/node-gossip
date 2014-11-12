@@ -1,5 +1,5 @@
-var Scuttle = require('../lib/scuttle').Scuttle;
-var PeerState = require('../lib/peer_state').PeerState;
+var Scuttle = require('../lib/scuttle');
+var PeerState = require('../lib/peer_state');
 
 
 module.exports = {

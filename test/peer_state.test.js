@@ -1,4 +1,4 @@
-var PeerState = require('../lib/peer_state').PeerState;
+var PeerState = require('../lib/peer_state');
 
 
 module.exports = {

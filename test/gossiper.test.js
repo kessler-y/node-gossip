@@ -1,81 +1,89 @@
-var Gossiper = require('../lib/gossiper').Gossiper,
-    PeerState = require('../lib/peer_state').PeerState;
+var should = require('should')
+var Gossiper = require('../lib/gossiper')
+var PeerState = require('../lib/peer_state')
+describe('gossiper', function() {
+	var gossiper
 
-module.exports = {
-  'should be able to set and retrieve local state' : function(beforeExit, assert) {
-    var g = new Gossiper(1234);
-    g.setLocalState('hi', 'hello');
-    assert.equal('hello', g.getLocalState('hi'));
-  },
-  'should be able to get a list of keys for a peer' : function(beforeExit, assert) {
-    var g = new Gossiper(1234);
-    g.peers.p1 = new PeerState(12345);
-    g.peers.p1.attrs['keyz'] = [];
-    g.peers.p1.attrs['keyzy'] = [];
-    assert.deepEqual(['keyz','keyzy'], g.peerKeys('p1'));
-  },
-  'should be able to get the value of a key for a peer' : function(beforeExit, assert) {
-    var g = new Gossiper(1234);
-    g.peers.p1 = new PeerState(12345);
-    g.peers.p1.attrs['keyz'] = ['hi', 1];
-    assert.equal('hi', g.peerValue('p1','keyz'));
-  },
-  'should be able to get a list of peers' : function(beforeExit, assert) {
-    var g = new Gossiper(1234);
-    g.peers.p1 = new PeerState(12345);
-    g.peers.p2 = new PeerState(12346);
-    assert.deepEqual(['p1','p2'], g.allPeers());
-  },
-  'should emit new_peer event when we learn about a new peer' : function(beforeExit, assert) {
+	beforeEach(function(done) {
+		gossiper = new Gossiper(1234)
+		done()
+	})
 
-    var g = new Gossiper(1234);
-    // mock scuttle
-    g.scuttle = {
-      scuttle: function(v) {
-        return { 'new_peers' : ['127.0.0.1:8010'] };
-      }
-    };
+	afterEach(function(done) {
+		gossiper.stop(done)
+	})
 
-    var emitted = false;
-    g.on('new_peer', function() {
-      emitted = true;
-    });
-    g.firstResponseMessage({});
-    beforeExit(function() {
-      assert.ok(emitted);
-    });
-  },
-  'should emit update event when we learn more about a peer' : function(beforeExit, assert) {
-    var g = new Gossiper(1234);
-    g.peers['127.0.0.1:8010'] = new PeerState(8010);
-    g.handleNewPeers({ '127.0.0.1:8010': undefined });
-    var update = null;
-    g.on('update', function(peer,k,v,ttl) {
-     update = [peer,k,v,ttl];
-    });
-    g.peers['127.0.0.1:8010'].updateLocal('howdy', 'yall');
-    beforeExit(function() {
-      assert.deepEqual(['127.0.0.1:8010', 'howdy', 'yall', undefined], update);
-    });
-  }
-  ,'new peer metadata': function(beforeExit, assert) {
-    var g = new Gossiper(1234);
-    g.peers['127.0.0.1:8010'] = new PeerState(8010);
-    g.handleNewPeers({ '127.0.0.1:8010': { data: 1 } });
+	it('has local state', function() {
+		gossiper.setLocalState('hi', 'hello')
+		gossiper.getLocalState('hi').should.be.eql('hello')
+	})
 
-    beforeExit(function() {
-      assert.deepEqual(g.peers['127.0.0.1:8010'].metadata, { data: 1 });
-    });
-  }
-  ,'Bind to local ipv6 address': function(beforeExit, assert) {
-    var g = new Gossiper(8018, [], '::1');
-    g.start();
-    setTimeout(function() {
-      var boundAddress = g.server.address().address;
-      g.stop();
-      beforeExit(function() {
-        assert.deepEqual(boundAddress, '::1');
-      });
-    }, 2000);
-  }
-}
+	it('contains a list of keys for each peer', function() {
+		gossiper.peers.p1 = new PeerState(12345)
+		gossiper.peers.p1.attrs['keyz'] = []
+		gossiper.peers.p1.attrs['keyzy'] = []
+		should(gossiper.peerKeys('p1')).eql(['keyz', 'keyzy'])
+	})
+
+	it('by default, it remembers values for keys in other peers', function() {
+		gossiper.peers.p1 = new PeerState(12345)
+		gossiper.peers.p1.attrs['keyz'] = ['hi', 1]
+		gossiper.peerValue('p1', 'keyz').should.eql('hi')
+	})
+
+	it.skip('does not remember peer key values if told not to do so', function() {
+
+	})
+
+	it('maintains a list of peers', function() {
+		gossiper.peers.p1 = new PeerState(12345)
+		gossiper.peers.p2 = new PeerState(12346)
+		should(gossiper.allPeers()).eql(['p1', 'p2'])
+	})
+
+	it('emits new_peer event when a new peer is discovered', function(done) {
+		// mock scuttle
+		gossiper.scuttle = {
+			scuttle: function(v) {
+				return {
+					'new_peers': ['127.0.0.1:8010']
+				}
+			}
+		}
+
+		var emitted = false
+		gossiper.on('new_peer', function(peer) {
+			peer.metadata.should.be.eql('127.0.0.1:8010')
+			done()
+		})
+		gossiper.firstResponseMessage({})
+	})
+
+	it('emits an update event when peer sends data', function(done) {
+		gossiper.peers['127.0.0.1:8010'] = new PeerState(8010)
+		gossiper.handleNewPeers({
+			'127.0.0.1:8010': undefined
+		})
+
+		gossiper.on('update', function(peer, k, v, ttl) {
+			peer.should.eql('127.0.0.1:8010')
+			k.should.eql('howdy')
+			v.should.eql('yall')
+			should(ttl).be.undefined
+			done()
+		})
+
+		gossiper.peers['127.0.0.1:8010'].updateLocal('howdy', 'yall')
+	})
+
+	it('new peers have metadata', function() {
+		gossiper.peers['127.0.0.1:8010'] = new PeerState(8010)
+		gossiper.handleNewPeers({
+			'127.0.0.1:8010': {
+				data: 1
+			}
+		})
+
+		gossiper.peers['127.0.0.1:8010'].metadata.should.eql({ data: 1 })
+	})
+})

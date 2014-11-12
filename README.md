@@ -46,7 +46,7 @@ Check out the the scripts in the simulations/ directory for some examples.
     setTimeout(function() {
       updater.setLocalState('somekey', 'somevalue');
 
-      // with ttl
+      // with expiry
       updater.setLocalState('somekey', 'somevalue', Date.now() + 10000); // 10 seconds from now this key will start to expire in the gossip net
     }, 15000);
 

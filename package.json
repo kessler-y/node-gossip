@@ -28,7 +28,8 @@
   "dependencies": {
     "debug": "~0.7.4",
     "json-over-tcp": "~0.3.2",
-    "nssocket": "^0.5.2"
+    "nssocket": "^0.5.2",
+    "pem": "^1.4.1"
   },
   "main": "index.js",
   "scripts": {

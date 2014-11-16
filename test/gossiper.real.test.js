@@ -1,5 +1,6 @@
 var should = require('should')
 var Gossiper = require('../lib/gossiper')
+
 var async = require('async')
 
 describe('gossiper real tests', function() {
@@ -63,9 +64,9 @@ describe('gossiper real tests', function() {
 	beforeEach(function(done) {
 		this.timeout(beforeEachDelay + 1000)
 
-		seed = new Gossiper(7000)
-		g1 = new Gossiper(7001, ['127.0.0.1:7000'])
-		g2 = new Gossiper(7002, ['127.0.0.1:7000'])
+		seed = new Gossiper({ port: 7000 })
+		g1 = new Gossiper({ port: 7001, seeds: ['127.0.0.1:7000'] })
+		g2 = new Gossiper({ port: 7002, seeds: ['127.0.0.1:7000'] })
 
 		async.parallel([
 			function(callback) {

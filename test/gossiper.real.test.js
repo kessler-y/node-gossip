@@ -61,7 +61,7 @@ describe('gossiper real tests', function() {
 		}, 2500)
 	})
 
-	it.only('knows when peers die or come back alive', function (done) {
+	it('knows when peers die or come back alive', function (done) {
 		this.timeout(125000)
 
 		var g2Stopped = false

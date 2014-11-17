@@ -1,3 +1,3 @@
-// This file is just added for convenience so this repository can be
-// directly checked out (submodule)  into a project
-module.exports.Gossiper = require('./lib/gossiper');
+module.exports.Gossiper = require('./lib/gossiper')
+module.exports.ServerAdapter = require('./lib/ServerAdapter')
+module.exports.SocketAdapter = require('./lib/SocketAdapter')

@@ -61,6 +61,60 @@ describe('gossiper real tests', function() {
 		}, 2500)
 	})
 
+	it.only('knows when peers die or come back alive', function (done) {
+		this.timeout(125000)
+
+		var g2Stopped = false
+		var g2Started = false
+
+		var peerFail = { g1: false, seed: false }
+		var peerAlive = { g1: false, seed: false }
+		
+		g1.on('peer_failed', function(peer) {
+			peer.should.be.eql('127.0.0.1:7002')
+			peerFail.g1 = true
+		})
+
+		seed.on('peer_failed', function(peer) {
+			peer.should.be.eql('127.0.0.1:7002')
+			peerFail.seed = true
+		})
+
+		g1.on('peer_alive', function(peer) {
+			peer.should.be.eql('127.0.0.1:7002')
+			peerAlive.g1 = true
+		})
+
+		seed.on('peer_alive', function (peer) {
+			peer.should.be.eql('127.0.0.1:7002')
+			peerAlive.seed = true
+		})
+
+		g2.stop(function () {
+			g2Stopped = true
+		})
+
+		// check for peer failed event after 35 seconds
+		setTimeout(function () {
+			g2Stopped.should.be.true
+			peerFail.g1.should.be.true
+			peerFail.seed.should.be.true
+
+			g2.start(function () {
+				g2Started = true
+			})
+
+			// check for peer alive event after 35 seconds
+			setTimeout(function () {
+				g2Started.should.be.true
+				peerAlive.g1.should.be.true
+				peerAlive.seed.should.be.true
+				done()
+			}, 35000)
+
+		}, 35000)
+	})
+
 	beforeEach(function(done) {
 		this.timeout(beforeEachDelay + 1000)
 
@@ -89,13 +143,25 @@ describe('gossiper real tests', function() {
 
 		async.parallel([
 			function(callback) {
-				seed.stop(callback)
+				if (seed.started) {
+					seed.stop(callback)
+				} else {
+					callback()
+				}
 			},
 			function(callback) {
-				g1.stop(callback)
+				if (g1.started) {
+					g1.stop(callback)
+				} else {
+					callback()
+				}
 			},
 			function(callback) {
-				g2.stop(callback)
+				if (g2.started) {
+					g2.stop(callback)
+				} else {
+					callback()
+				}
 			}
 		], done)
 	})

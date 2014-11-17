@@ -1,9 +1,9 @@
 var should = require('should')
 var Gossiper = require('../lib/gossiper')
-
+var inspect = require('util').inspect
 var async = require('async')
 
-describe('gossiper real tests', function() {
+describe('gossiper', function() {
 	var beforeEachDelay = 5000
 	var seed, g1, g2
 
@@ -113,6 +113,39 @@ describe('gossiper real tests', function() {
 			}, 35000)
 
 		}, 35000)
+	})
+
+	it.only('randomly gossips with peers', function (done) {
+		this.timeout(10000)
+		// this is not exactly a statistical test, but its something...
+
+		var seedGossip = []
+		seed.on('gossip', function(peer) {
+			seedGossip.push(peer.port)
+		})
+
+		var g1Gossip = []
+		g1.on('gossip', function(peer) {
+			g1Gossip.push(peer.port)
+		})
+
+		var g2Gossip = []
+		g2.on('gossip', function(peer) {
+			g2Gossip.push(peer.port)
+		})
+
+		setTimeout(function () {
+			seedGossip.should.containEql(7001)
+			seedGossip.should.containEql(7002)
+
+			g1Gossip.should.containEql(7000)
+			g1Gossip.should.containEql(7002)
+
+			g2Gossip.should.containEql(7000)
+			g2Gossip.should.containEql(7001)
+
+			done()
+		}, 5000)
 	})
 
 	beforeEach(function(done) {

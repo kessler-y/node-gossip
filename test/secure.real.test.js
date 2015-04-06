@@ -1,6 +1,6 @@
 var grapevine = require('../index')
 
-describe('secure communication', function () {
+describe.skip('secure communication', function () {
 
 	var g1, g2
 
@@ -19,7 +19,6 @@ describe('secure communication', function () {
 		g2.on('new_peer', function (peer) {
 			console.log('new peer: %s', peer)
 		})
-
 
 		g1.setLocalState('a', 'b')
 	})

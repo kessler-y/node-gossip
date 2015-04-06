@@ -9,7 +9,7 @@ _A fork of the original node-gossip_
 >   a. The informal transmission of information, gossip, or rumor from person to person.
 >   b. A usually unrevealed source of confidential information.
 
-Version 0.4.0 has breaking changes and cannot transparently replace 0.3.* versions
+Version 1.0.0 has breaking changes and cannot transparently replace 0.\*.\* versions
 
 #### New features:
 * default transport using [nssocket](https://github.com/nodejitsu/nssocketa)

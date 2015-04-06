@@ -28,7 +28,7 @@ describe('Network adapters', function () {
 
 		it('emits a data event', function (done) {
 			server.on('connection', function (s) {
-				s.send({ test: 123 })
+				s.write({ test: 123 })
 			})
 
 			socket.on('data', function (message) {

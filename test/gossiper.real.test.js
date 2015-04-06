@@ -115,7 +115,7 @@ describe('gossiper', function() {
 		}, 35000)
 	})
 
-	it.only('randomly gossips with peers', function (done) {
+	it('randomly gossips with peers', function (done) {
 		this.timeout(10000)
 		// this is not exactly a statistical test, but its something...
 
@@ -146,6 +146,19 @@ describe('gossiper', function() {
 
 			done()
 		}, 5000)
+	})
+
+	it('emits an update event when peers propogate data', function (done) {
+		this.timeout(7000)
+
+		g2.on('update', function (peer, k, v, expiry) {
+			peer.should.be.eql('127.0.0.1:7001')
+			k.should.be.eql('test')
+			v.should.be.eql({ x: 1})
+			done()
+		})
+
+		g1.setLocalState('test', { x: 1 })
 	})
 
 	beforeEach(function(done) {

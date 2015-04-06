@@ -4,10 +4,10 @@ describe('secure communication', function () {
 
 	var g1, g2
 
-	it('can use secure channel', function (done) {
+	it('updates', function (done) {
 		this.timeout(5000)
 	
-		g2.on('update', function(k, v, ttl) {
+		g2.on('update', function(peer, k, v, ttl) {
 			console.log(k, v)
 			done()
 		})
@@ -34,6 +34,10 @@ describe('secure communication', function () {
 						
 			g1.start(function (err) {
 				if (err) return done(err)
+
+				g1.server.on('connection', function (socket) {
+					console.log(socket)
+				})
 
 				grapevine.simpleSecureGossiper({ port: 5002, presharedKey: '123', seeds: ['127.0.0.1:5001'] }, function (err, _g2) {
 					if (err) return done(err)

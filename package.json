@@ -36,7 +36,7 @@
     "test": "expresso -I lib test/*"
   },
   "engines": {
-    "node": "0.4.x || 0.5.x || 0.6.x || 0.7.x || 0.8.x || 0.9.x || 0.10.x"
+    "node": "0.8.x || 0.9.x || 0.10.x || 0.12.x"
   },
   "devDependencies": {
     "async": "^0.9.0",

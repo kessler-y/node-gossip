@@ -116,7 +116,7 @@ describe('gossiper', function() {
 	})
 
 	it('randomly gossips with peers', function (done) {
-		this.timeout(10000)
+		this.timeout(12000)
 		// this is not exactly a statistical test, but its something...
 
 		var seedGossip = []
@@ -145,7 +145,7 @@ describe('gossiper', function() {
 			g2Gossip.should.containEql(7001)
 
 			done()
-		}, 5000)
+		}, 8000)
 	})
 
 	it('emits an update event when peers propogate data', function (done) {

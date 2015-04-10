@@ -1,5 +1,5 @@
-Grapevine
-=========
+Grapevine [![Build Status](https://secure.travis-ci.org/kessler/grapevine.png?branch=master)](http://travis-ci.org/kessler/grapevine)
+======
 
 _A fork of the original node-gossip_
 

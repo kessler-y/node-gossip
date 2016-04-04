@@ -1,6 +1,6 @@
-var Gossiper = require('../lib/gossiper').Gossiper;
+var Gossiper = require('../lib/gossiper');
 
-var seed = new Gossiper(9000, []);
+var seed = new Gossiper({ port: 9000, seeds: [] });
 seed.start();
 
 var n = 0;
@@ -17,7 +17,7 @@ var setup_peer = function(this_peer) {
   });
 }
 for(var i = 9001; i < 9001+count;i++) {
-  var g = gs[i] = new Gossiper(i, ['127.0.0.1:9000']);
+  var g = gs[i] = new Gossiper({ port: i, seeds: ['127.0.0.1:9000'] });
   setup_peer(g);
 }
 // kill one of the nodes

@@ -1,6 +1,6 @@
-var Gossiper = require('../lib/gossiper').Gossiper;
+var Gossiper = require('../lib/gossiper');
 
-var seed = new Gossiper(9000, []);
+var seed = new Gossiper({ port: 9000,  seeds: [] });
 seed.start();
 
 var n = 0;
@@ -8,7 +8,7 @@ var gs = [];
 var start_time = undefined;
 var count = 100;
 for(var i = 9001; i < 9001+count;i++) {
-  var g = gs[i] = new Gossiper(i, ['127.0.0.1:9000']);
+  var g = gs[i] = new Gossiper({ port: i,  seeds: ['127.0.0.1:9000'] });
   g.start();
   g.on('update', function(peer,k,v) {
     if(k == "hi") {
@@ -23,7 +23,7 @@ for(var i = 9001; i < 9001+count;i++) {
   });
 }
 
-var g = new Gossiper(9999, ['127.0.0.1:9000']);
+var g = new Gossiper({ port: 9999, seeds: ['127.0.0.1:9000'] });
 g.start();
 
 setTimeout(function() {

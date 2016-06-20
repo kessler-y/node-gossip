@@ -23,7 +23,7 @@ Check out the the scripts in the simulations/ directory for some examples.
 
 ### Usage
 ```javascript
-    var Gossiper = require('grapevine').Gossiper;
+    var Gossiper = require('grapevine');
     // Create a seed peer.
     var seed = new Gossiper({ port: 9000 });
     seed.start();

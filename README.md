@@ -22,7 +22,7 @@ node-gossip implements a gossip protocol w/failure detection, allowing you to cr
 Check out the the scripts in the simulations/ directory for some examples.
 
 ### Usage
-
+```javascript
     var Gossiper = require('grapevine').Gossiper;
     // Create a seed peer.
     var seed = new Gossiper({ port: 9000 });
@@ -48,12 +48,12 @@ Check out the the scripts in the simulations/ directory for some examples.
       // with expiry
       updater.setLocalState('somekey', 'somevalue', Date.now() + 10000); // 10 seconds from now this key will start to expire in the gossip net
     }, 15000);
-
+```
 
 ### API
 
 Gossiper methods:
-
+```javascript
     allPeers()
     livePeers()
     deadPeers()
@@ -61,14 +61,14 @@ Gossiper methods:
     peerKeys(peer)
     getLocalState(key)
     setLocalSate(key, value)
-
+```
 Gossiper events:
-
+```javascript
     on('update', function(peer_name, key, value) {})
     on('new_peer', function(peer_name) {})
     on('peer_alive', function(peer_name) {})
     on('peer_failed', function(peer_name) {})
-
+```
 ### Tests
 
     expresso -I lib test/*
